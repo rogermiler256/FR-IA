@@ -6,10 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "node server.js"   // 👈 AGREGA ESTA LÍNEA
   },
   "dependencies": {
+    "express": "^4.21.1",       // 👈 AGREGA ESTO
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },

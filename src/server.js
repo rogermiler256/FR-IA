@@ -6,18 +6,19 @@ import { fileURLToPath } from "url";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Necesario para usar __dirname en módulos ES
+// Necesario para __dirname en ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Servir los archivos del build (React o Vite)
-app.use(express.static(path.join(__dirname, "dist"))); // cambia "dist" por "build" si usas CRA
+// Servir archivos estáticos desde "dist"
+app.use(express.static(path.join(__dirname, "dist")));
 
-// Todas las rutas apuntan al index.html
+// Redirigir todas las rutas al index.html (SPA)
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html")); // o "build"
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
+// Iniciar servidor
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor ejecutándose en puerto ${PORT}`);
+  console.log(`🚀 Servidor activo en puerto ${PORT}`);
 });
