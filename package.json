@@ -7,10 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "node server.js"   // 👈 AGREGA ESTA LÍNEA
+    "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.21.1",       // 👈 AGREGA ESTO
+    "express": "^4.21.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
