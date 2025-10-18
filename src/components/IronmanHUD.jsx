@@ -1,51 +1,67 @@
 import { useState } from "react";
-import "../index.css"; // 👈 Asegúrate de tener esto
+import "../index.css";
 
 export default function IronmanHUD() {
   const [energy] = useState(78);
 
+  // 👇 función que inicia el checkout
+  const handleCheckout = async () => {
+    try {
+      const res = await fetch("/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      window.location.href = data.url; // redirige a Stripe
+    } catch (err) {
+      console.error("Error al iniciar checkout:", err);
+    }
+  };
+
   return (
     <div className="relative w-full h-screen bg-black text-cyan-400 font-mono overflow-hidden">
-    
-     {/* Contenedor central */}
-<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center text-center">
-  
-<a href="https://nov-ias-com.onrender.com" target="_blank" rel="noopener noreferrer">
-  <div className="cursor-pointer w-40 h-40 border-4 border-cyan-400 rounded-full flex items-center justify-center shadow-[0_0_30px_#00ffff] animate-pulse-glow hover:scale-110 transition-transform">
- {/* Círculo con pulso multicolor */}
-<div className="w-40 h-40 border-4 border-cyan-400 rounded-full flex items-center justify-center shadow-[0_0_30px_#00ffff]">
-  <div className="w-24 h-24 rounded-full animate-pulse-multicolor"></div>
-</div>
 
+      {/* Contenedor central */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center text-center">
+        
+        {/* Círculo animado */}
+        <div
+          onClick={handleCheckout}
+          className="cursor-pointer w-40 h-40 border-4 border-cyan-400 rounded-full flex items-center justify-center shadow-[0_0_30px_#00ffff] animate-pulse-glow hover:scale-110 transition-transform"
+        >
+          <div className="w-40 h-40 border-4 border-cyan-400 rounded-full flex items-center justify-center shadow-[0_0_30px_#00ffff]">
+            <div className="w-24 h-24 rounded-full animate-pulse-multicolor"></div>
+          </div>
+        </div>
 
-  </div>
-</a>
+        {/* Texto principal debajo del círculo */}
+        <div className="mt-6">
+          <h1
+            className="text-2xl md:text-4xl font-bold tracking-widest animate-pulse text-cyan-400"
+            style={{
+              textShadow: "0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff",
+            }}
+          >
+            FREE IA
+          </h1>
+          <p
+            className="text-lg mt-2 text-cyan-300"
+            style={{
+              textShadow: "0 0 6px #00ffff, 0 0 12px #00ffff",
+            }}
+          >
+            Energía: {energy}%
+          </p>
 
-
-
-  {/* Texto principal debajo del círculo */}
-  <div className="mt-6">
-    <h1
-      className="text-2xl md:text-4xl font-bold tracking-widest animate-pulse text-cyan-400"
-      style={{
-        textShadow: "0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff"
-      }}
-    >
-      
-      FREE IA
-    </h1>
-    <p
-      className="text-lg mt-2 text-cyan-300"
-      style={{
-        textShadow: "0 0 6px #00ffff, 0 0 12px #00ffff"
-      }}
-    >
-      Energía: {energy}%
-    </p>
-  </div>
-</div>
-
-  
+          {/* 👇 Botón de pago */}
+          <button
+            onClick={handleCheckout}
+            className="mt-6 px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-semibold rounded-lg shadow-lg transition-all"
+          >
+            Comprar y Descargar 🔥
+          </button>
+        </div>
+      </div>
 
       {/* Indicadores laterales */}
       <div className="absolute top-10 left-10 space-y-2">
